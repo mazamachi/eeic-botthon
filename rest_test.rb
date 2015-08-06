@@ -16,11 +16,12 @@ cli = Twitter::REST::Client.new do |config|
 end
 
 #ツイートを投稿
-cli.update("Hello twitter!")
+cli.update("Hello twitter! #eeic_botthon")
 
 #文字列の変数を投稿
 str = "hemi"
-cli.update(str)
+hashtag = "#eeic_botthon"
+cli.update(str+" "+hashtag)
 
 #TLを最新20件取得し、配列として保存
 ar = cli.home_timeline
@@ -29,3 +30,5 @@ ar.each do |tweet|
   puts tweet.text
 end
 
+#リプライを取得した内の最初のものをふぁぼる
+cli.favorite(cli.mentions_timeline[0])

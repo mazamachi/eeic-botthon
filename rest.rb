@@ -2,10 +2,10 @@
 # "#include <stdlib.h>" みたいなもん
 require 'twitter'
 
-CONSUMER_KEY        = "**************************"
-CONSUMER_SECRET     = "**************************"
-ACCESS_TOKEN        = "**************************"
-ACCESS_TOKEN_SECRET = "**************************"
+CONSUMER_KEY        = '********************'
+CONSUMER_SECRET     = '********************'
+ACCESS_TOKEN        = '********************'
+ACCESS_TOKEN_SECRET = '********************'
 
 #クライアントが定義される
 cli = Twitter::REST::Client.new do |config|
@@ -14,4 +14,3 @@ cli = Twitter::REST::Client.new do |config|
   config.access_token        = ACCESS_TOKEN
   config.access_token_secret = ACCESS_TOKEN_SECRET
 end
-

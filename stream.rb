@@ -14,16 +14,26 @@ cli = Twitter::REST::Client.new do |config|
   config.access_token_secret = ACCESS_TOKEN_SECRET
 end
 
-TweetStream.configure do |config|
+cli_stream = Twitter::Streaming::Client.new do |config|
   config.consumer_key       = CONSUMER_KEY
   config.consumer_secret    = CONSUMER_SECRET
-  config.oauth_token        = ACCESS_TOKEN
-  config.oauth_token_secret = ACCESS_TOKEN_SECRET
-  config.auth_method        = :oauth
+  config.access_token        = ACCESS_TOKEN
+  config.access_token_secret = ACCESS_TOKEN_SECRET
 end
 
-cli_stream = TweetStream::Client.new
-
-cli_stream.userstream do |status|
-  puts "@#{status.user.screen_name}: #{status.text}"
+cli_stream.user do |status|
+  case status
+  when Twitter::Tweet
+    puts "@#{status.user.screen_name}: #{status.text}"
+  when Twitter::Streaming::Event
+    case status.name
+    when :favorite
+      puts "Favorited by " + status.source.name
+    when :unfavorite
+      puts "Unfavorited by " + status.source.name
+    when :follow
+      puts "Followed by " + status.source.name
+    end
+  end
 end
+
